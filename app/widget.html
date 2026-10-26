@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Helldivers 2 War Tracker widget</title>
+  <script src="electron-shim.js"></script>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="widget.css">
+</head>
+<body>
+  <div id="w" class="w">
+    <header id="bar">
+      <img src="icons/icon48.png" alt="" width="22" height="22">
+      <div class="ttl"><strong>HELLDIVERS 2</strong><span id="sub">Waiting for data</span></div>
+      <i id="dot" class="dot" title=""></i>
+      <button id="gear" class="ib" title="Widget settings" aria-label="Widget settings">&#9881;</button>
+      <button id="close" class="ib" title="Hide the widget" aria-label="Hide widget">&times;</button>
+    </header>
+    <div class="vx" id="vx">
+      <button id="gear2" class="ib" title="Widget settings" aria-label="Widget settings">&#9881;</button>
+      <button id="close2" class="ib" title="Hide the widget" aria-label="Hide widget">&times;</button>
+    </div>
+    <section id="cfg" hidden>
+      <div class="lbl">Style</div>
+      <div id="styles" class="styles"></div>
+      <div id="secs">
+        <label><input type="checkbox" id="c-mo"> Major Order</label>
+        <label><input type="checkbox" id="c-def"> Defenses</label>
+        <label><input type="checkbox" id="c-pin"> Pinned planets</label>
+      </div>
+      <label title="Untick to let the widget sit on the desktop, behind your other windows"><input type="checkbox" id="c-top"> Keep above other windows</label>
+      <label><input type="checkbox" id="c-spaces"> Show on every desktop</label>
+      <label class="rng">Opacity <input type="range" id="c-op" min="40" max="100" step="5"><span id="c-opv"></span></label>
+      <button id="c-design" class="btn">Customise layout…</button>
+    </section>
+    <main id="cards"></main>
+    <footer id="foot">
+      <button id="open" class="btn">Open tracker</button>
+      <button id="toggle" class="btn ghost">Desktop widget</button>
+    </footer>
+  </div>
+  <script src="widget.js" type="module"></script>
+</body>
+</html>

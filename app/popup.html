@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Helldivers 2 War Tracker</title>
+  <script src="electron-shim.js"></script>
+  <script src="errlog.js"></script>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img class="logo" id="logo" src="icons/icon48.png" alt="" width="34" height="34">
+    <div class="titles">
+      <strong>HELLDIVERS 2</strong>
+      <span data-i="sub">Galactic War Tracker</span>
+    </div>
+    <div id="status" class="status busy" title="">
+      <i class="dot"></i><span id="statusText">Loading</span>
+    </div>
+    <button id="streak" class="streak" type="button" hidden aria-label="Best Drills streak"><span aria-hidden="true">⚡</span><b id="streakNum">0</b></button>
+    <button id="copySummary" class="icon-btn" aria-label="Copy a status summary" title="Copy a status summary">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+    </button>
+    <button id="refresh" class="icon-btn" aria-label="Refresh now" title="Refresh now">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+    </button>
+  </header>
+
+  <nav role="tablist">
+    <button role="tab" data-tab="mo" class="active" aria-selected="true" aria-label="Major Order" title="Major Order"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span data-i="t_mo">Order</span></button>
+    <button role="tab" data-tab="campaigns" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><span><span data-i="t_campaigns">Campaigns</span> <span id="campCount" class="count"></span></span></button>
+    <button role="tab" data-tab="news" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 8h3v9a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5"/></svg><span><span data-i="t_news">News</span> <span id="badge" class="badge" hidden></span></span></button>
+    <button role="tab" data-tab="stats" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20v-6"/></svg><span data-i="t_stats">Stats</span></button>
+    <button role="tab" data-tab="station" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/></svg><span data-i="t_station">Station</span></button>
+    <button role="tab" data-tab="drills" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg><span data-i="t_drills">Drills</span></button>
+    <button type="button" id="navToggle" class="navtoggle" aria-expanded="true" aria-label="Minimise the tab bar" title="Minimise the tab bar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  </nav>
+
+  <main>
+    <div id="cacheBar" class="cachebar" role="status" hidden></div>
+    <section id="mo" role="tabpanel"></section>
+    <section id="campaigns" role="tabpanel" hidden></section>
+    <section id="news" role="tabpanel" hidden></section>
+    <section id="stats" role="tabpanel" hidden></section>
+    <section id="station" role="tabpanel" hidden></section>
+    <section id="drills" role="tabpanel" hidden></section>
+  </main>
+
+  <footer>
+    <div id="settings" hidden>
+      <label class="switch-row">
+        <span><span data-i="theme">Theme</span><small data-i="theme_s">Locked themes are bought with Super Credits in Drills</small></span>
+        <select id="themeSel" class="sel"></select>
+      </label>
+      <label class="switch-row">
+        <span><span data-i="autotheme">Match system light/dark</span><small data-i="autotheme_s">Switches between Dark and Light with your computer's setting</small></span>
+        <input type="checkbox" id="autoTheme" class="switch">
+      </label>
+      <label class="switch-row">
+        <span><span data-i="notif">Notifications</span><small data-i="notif_s">Desktop alerts from the background check</small></span>
+        <input type="checkbox" id="notify" class="switch">
+      </label>
+      <div class="sub-h tabs-h" data-i="tabs">Tabs</div>
+      <div id="tabVis" class="tabvis" role="group" aria-label="Tabs to show"></div>
+      <label class="switch-row">
+        <span><span data-i="streak">Drills streak in header</span><small data-i="streak_s">Your best Stratagem Hero streak, next to the status</small></span>
+        <input type="checkbox" id="streakToggle" class="switch">
+      </label>
+      <div class="sub-h" data-i="look">Look and feel</div>
+      <label class="switch-row"><span><span data-i="compact">Compact mode</span><small data-i="compact_s">Tighter cards and spacing</small></span><input type="checkbox" id="compactToggle" class="switch"></label>
+      <label class="switch-row"><span><span data-i="fsize">Text size</span><small id="fontVal">100%</small></span><input type="range" id="fontRange" min="85" max="130" step="5" value="100" aria-label="Text size"></label>
+      <label class="switch-row"><span><span data-i="lang">Language</span><small data-i="lang_s">Tabs, settings and banners. Game and news text stay as they are.</small></span><select id="langSel" class="sel"></select></label>
+      <details id="nset" class="nset">
+        <summary>Notification settings</summary>
+        <div class="nset-body">
+          <div class="sub-h">Alert me about</div>
+          <label class="switch-row"><span>New dispatches</span><input type="checkbox" id="nDispatch" class="switch"></label>
+          <label class="switch-row"><span>New Major Orders</span><input type="checkbox" id="nOrder" class="switch"></label>
+          <label class="switch-row"><span>Defense campaigns<small>When a planet comes under attack</small></span><input type="checkbox" id="nDefense" class="switch"></label>
+          <label class="switch-row"><span>Major Order ending soon<small>If it is still unfinished near the deadline</small></span><input type="checkbox" id="nEnding" class="switch"></label>
+          <label class="switch-row"><span>Warn me when<small>Time left on the Major Order</small></span>
+            <select id="nEndingHours">
+              <option value="1">1 hour left</option><option value="2">2 hours left</option><option value="6">6 hours left</option><option value="12">12 hours left</option>
+            </select></label>
+          <label class="switch-row"><span>Planet liberated, defended or lost<small>When a campaign ends</small></span><input type="checkbox" id="nPlanets" class="switch"></label>
+          <label class="switch-row"><span>Only my pinned planets<small>Applies to defense and planet alerts (needs at least one pin)</small></span><input type="checkbox" id="nPinnedOnly" class="switch"></label>
+          <div class="sub-h">Tracking alerts</div>
+          <label class="switch-row"><span>Pinned planet stalls<small>When a pinned front stops moving or starts losing ground</small></span><input type="checkbox" id="nStall" class="switch"></label>
+          <label class="switch-row"><span>Defense about to fail<small>When a defense probably won't hold before its deadline</small></span><input type="checkbox" id="nRisk" class="switch"></label>
+          <label class="switch-row"><span>Warning badge<small>A red ! on the toolbar icon while a defense is at risk</small></span><input type="checkbox" id="nRiskBadge" class="switch"></label>
+          <label class="switch-row"><span>Sound<small>Alarm tone for those alerts (a beep in the open panel, the system sound on notifications)</small></span><input type="checkbox" id="nRiskSound" class="switch"></label>
+          <div class="sub-h">Toolbar icon badge</div>
+          <label class="switch-row"><span>Badge shows<small>Number on the toolbar icon</small></span>
+            <select id="nBadge"><option value="news">Unread dispatches</option><option value="defense">Active defenses</option></select></label>
+          <div class="sub-h">Quiet hours</div>
+          <label class="switch-row"><span>Silence alerts<small>Unread news still counts on the badge</small></span><input type="checkbox" id="nQuiet" class="switch"></label>
+          <div class="time-row" id="quietTimes">
+            <label>From <input type="time" id="nQuietStart"></label>
+            <label>To <input type="time" id="nQuietEnd"></label>
+          </div>
+          <div class="sub-h">Check for updates</div>
+          <label class="switch-row"><span>Check every<small>Applies while Chrome is open</small></span>
+            <select id="nInterval">
+              <option value="2">2 minutes</option><option value="5">5 minutes</option><option value="10">10 minutes</option>
+              <option value="15">15 minutes</option><option value="30">30 minutes</option>
+            </select></label>
+        </div>
+      </details>
+      <div class="sub-h" data-i="backup">Backup</div>
+      <div class="btnline"><button type="button" id="expBtn" class="btn alt" data-i="export">Export settings</button><button type="button" id="impBtn" class="btn alt" data-i="import">Import settings</button><input type="file" id="impFile" accept="application/json,.json" hidden></div>
+      <div id="backupMsg" class="faint" role="status"></div>
+      <div class="sub-h" data-i="help">Help</div>
+      <div class="btnline"><button type="button" id="tourBtn" class="link-btn" data-i="tour">Take the tour</button><button type="button" id="newBtn" class="link-btn" data-i="whatsnew">What's new</button></div>
+      <details id="errBox" class="nset"><summary><span><span data-i="errlog">Error log</span> <span id="errCount" class="faint"></span></span></summary>
+        <div class="nset-body"><div id="errList" class="errlist"></div><div class="btnline"><button type="button" id="errCopy" class="link-btn">Copy</button><button type="button" id="errClear" class="link-btn">Clear</button></div></div></details>
+      <button id="adminBtn" class="link-btn" aria-expanded="false" hidden>&#128274; Admin</button>
+      <div id="adminBox" hidden>
+        <form id="adminForm" autocomplete="off">
+          <label id="adminPrompt" for="adminPw">Admin password<small>Opens High Command in the Drills tab</small></label>
+          <input type="password" id="adminPw" autocomplete="off">
+          <div class="admin-actions"><button type="submit" class="btn">Unlock</button><button type="button" id="adminCancel" class="link-btn">Cancel</button></div>
+          <div id="adminMsg" class="faint" role="status"></div>
+        </form>
+      </div>
+    </div>
+    <span id="updated">&nbsp;</span>
+    <button id="settingsBtn" class="link-btn" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      <span data-i="settings">Settings</span>
+    </button>
+  </footer>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

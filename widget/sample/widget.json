@@ -1,0 +1,5 @@
+{"version":1,"exportedAt":0,"updatedAt":0,"has":true,"defTotal":2,"pinCount":2,
+ "mo":[{"title":"Liberate Meridia","pct":63,"expires":4102444800000,"chip":{"cls":"ok","text":"On track"}}],
+ "defs":[{"name":"Tibit","pct":42.1,"expires":4102444800000,"risk":true,"color":"#ff5a52","chip":{"cls":"bad","text":"Won't hold"}},
+         {"name":"Fenmire","pct":78.4,"expires":4102444800000,"risk":false,"color":"#ffb300","chip":{"cls":"ok","text":"Holds in ~43m"}}],
+ "pins":[{"name":"Mort","pct":55.4,"region":"","color":"#ffb300","chip":{"cls":"","text":"~2h 10m to liberate"}}]}

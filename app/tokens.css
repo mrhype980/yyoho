@@ -1,0 +1,120 @@
+/* Helldivers 2 War Tracker - the theme is picked in Drills > Themes and applies everywhere. Super Earth is the default; Dark and Light are free; the rest are the game's colour themes. */
+:root { color-scheme:dark;                /* ---- Super Earth: blue + light blue, white text, yellow details ---- */
+  --bg:#0a1f44; --panel:#0f2c5c; --header-top:#143a73; --card:#133872; --card-hi:#18457f;
+  --line:#2a5ca8; --card-line:rgba(110,198,255,.16);
+  --light:#6ec6ff; --text:#ffffff; --muted:#a9d4f5; --faint:#7fa9d6;
+  --accent:#ffe033; --accent-ink:#ffe033; --on-accent:#071634; --on-light:#071634;
+  --track:#071634; --chip-bg:rgba(7,22,52,.55); --shadow:rgba(0,0,0,.4);
+  --radius:10px;
+}
+:root[data-theme="dark"] {
+  --bg:#0e1013; --panel:#161920; --header-top:#1d212b; --card:#1b1f27; --card-hi:#242a36;
+  --line:#323847; --card-line:rgba(255,255,255,.07);
+  --light:#7cc4ff; --text:#f1f3f7; --muted:#aab3c2; --faint:#7d8798;
+  --accent:#ffd84a; --accent-ink:#ffd84a; --on-accent:#14161a; --on-light:#0e1013;
+  --track:#0b0d11; --chip-bg:rgba(255,255,255,.07); --shadow:rgba(0,0,0,.6);
+}
+:root[data-theme="light"] { color-scheme:light;
+  --bg:#eaf0f8; --panel:#ffffff; --header-top:#f4f8fd; --card:#ffffff; --card-hi:#f1f6ff;
+  --line:#c5d3e6; --card-line:#d3deee;
+  --light:#1c78c8; --text:#10223c; --muted:#4a6285; --faint:#6a7f9d;
+  --accent:#ffd21f; --accent-ink:#8a6100; --on-accent:#10223c; --on-light:#ffffff;
+  --track:#d9e3f1; --chip-bg:#eaf1fa; --shadow:rgba(16,34,60,.25);
+}
+/* ---- Terminid Amber (unlocked in Drills > Themes) ---- */
+:root[data-theme="terminid"] { color-scheme:dark;
+  --bg:#1a1004; --panel:#2b1b08; --header-top:#4a2f0c; --card:#3b2609; --card-hi:color-mix(in srgb,#fff 8%,#3b2609);
+  --line:#5c3d14; --card-line:color-mix(in srgb,#ffd28a 20%,transparent);
+  --light:#ffd28a; --text:#ffffff; --muted:#c9a273; --faint:color-mix(in srgb,#c9a273 72%,#1a1004);
+  --accent:#ffb020; --accent-ink:#ffb020; --on-accent:#1a1004; --on-light:#1a1004;
+  --track:#0d0802; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Automaton Red (unlocked in Drills > Themes) ---- */
+:root[data-theme="automaton"] { color-scheme:dark;
+  --bg:#170708; --panel:#2a0d10; --header-top:#4a1216; --card:#3a1013; --card-hi:color-mix(in srgb,#fff 8%,#3a1013);
+  --line:#5e1b21; --card-line:color-mix(in srgb,#ff9b94 20%,transparent);
+  --light:#ff9b94; --text:#ffffff; --muted:#c58b8f; --faint:color-mix(in srgb,#c58b8f 72%,#170708);
+  --accent:#ff4d42; --accent-ink:#ff4d42; --on-accent:#170708; --on-light:#170708;
+  --track:#0d0304; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Illuminate Violet (unlocked in Drills > Themes) ---- */
+:root[data-theme="illuminate"] { color-scheme:dark;
+  --bg:#0e0720; --panel:#1a0f38; --header-top:#2e1a66; --card:#281a56; --card-hi:color-mix(in srgb,#fff 8%,#281a56);
+  --line:#3d2a7a; --card-line:color-mix(in srgb,#8fe9ff 20%,transparent);
+  --light:#8fe9ff; --text:#ffffff; --muted:#a99bd6; --faint:color-mix(in srgb,#a99bd6 72%,#0e0720);
+  --accent:#c084ff; --accent-ink:#c084ff; --on-accent:#0e0720; --on-light:#0e0720;
+  --track:#070312; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Golden Age (unlocked in Drills > Themes) ---- */
+:root[data-theme="gold"] { color-scheme:dark;
+  --bg:#0a0a08; --panel:#181710; --header-top:#2a2610; --card:#26230f; --card-hi:color-mix(in srgb,#fff 8%,#26230f);
+  --line:#3d3a1c; --card-line:color-mix(in srgb,#fff1a8 20%,transparent);
+  --light:#fff1a8; --text:#ffffff; --muted:#b5ac7a; --faint:color-mix(in srgb,#b5ac7a 72%,#0a0a08);
+  --accent:#ffd700; --accent-ink:#ffd700; --on-accent:#0a0a08; --on-light:#0a0a08;
+  --track:#050503; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Stealth Ops (unlocked in Drills > Themes) ---- */
+:root[data-theme="stealth"] { color-scheme:dark;
+  --bg:#050a07; --panel:#0c1a12; --header-top:#0f3a21; --card:#0e2e1b; --card-hi:color-mix(in srgb,#fff 8%,#0e2e1b);
+  --line:#1b4a2c; --card-line:color-mix(in srgb,#b6ffd0 20%,transparent);
+  --light:#b6ffd0; --text:#ffffff; --muted:#7fb596; --faint:color-mix(in srgb,#7fb596 72%,#050a07);
+  --accent:#6dff9a; --accent-ink:#6dff9a; --on-accent:#050a07; --on-light:#050a07;
+  --track:#020503; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Arctic Frost (unlocked in Drills > Themes) ---- */
+:root[data-theme="arctic"] { color-scheme:dark;
+  --bg:#04181c; --panel:#0a2b31; --header-top:#0e4650; --card:#0c3a42; --card-hi:color-mix(in srgb,#fff 8%,#0c3a42);
+  --line:#1a5a66; --card-line:color-mix(in srgb,#d4fbff 20%,transparent);
+  --light:#d4fbff; --text:#ffffff; --muted:#7fc3cc; --faint:color-mix(in srgb,#7fc3cc 72%,#04181c);
+  --accent:#7ff3ff; --accent-ink:#7ff3ff; --on-accent:#04181c; --on-light:#04181c;
+  --track:#020c0e; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+
+/* ---- Festival of Liberty (bought in Drills > Themes) ---- */
+:root[data-theme="festival"] { color-scheme:dark;
+  --bg:#07160f; --panel:#0f2a1b; --header-top:#173d27; --card:#143222; --card-hi:color-mix(in srgb,#fff 8%,#143222);
+  --line:#2f6b45; --card-line:color-mix(in srgb,#ffb3a8 20%,transparent);
+  --light:#ffb3a8; --text:#ffffff; --muted:#a8c9b3; --faint:color-mix(in srgb,#a8c9b3 72%,#07160f);
+  --accent:#ff5148; --accent-ink:#ff5148; --on-accent:#ffffff; --on-light:#07160f;
+  --track:#040c08; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Harvest Moon (bought in Drills > Themes) ---- */
+:root[data-theme="harvest"] { color-scheme:dark;
+  --bg:#1b0f06; --panel:#2d1a0b; --header-top:#4a2c12; --card:#3a2210; --card-hi:color-mix(in srgb,#fff 8%,#3a2210);
+  --line:#7a4a1e; --card-line:color-mix(in srgb,#ffd9a0 20%,transparent);
+  --light:#ffd9a0; --text:#ffffff; --muted:#cfa77a; --faint:color-mix(in srgb,#cfa77a 72%,#1b0f06);
+  --accent:#ff8c2a; --accent-ink:#ff8c2a; --on-accent:#ffffff; --on-light:#1b0f06;
+  --track:#0f0803; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Spring Bloom (bought in Drills > Themes; a light theme) ---- */
+:root[data-theme="bloom"] { color-scheme:light;
+  --bg:#f6eef4; --panel:#ffffff; --header-top:#fbf3f8; --card:#ffffff; --card-hi:#faf6fa;
+  --line:#e3c7d9; --card-line:#eddbe6;
+  --light:#c2417c; --text:#2a1626; --muted:#7b4a66; --faint:#9c778c;
+  --accent:#ff7ab0; --accent-ink:#b8326f; --on-accent:#2a1626; --on-light:#ffffff;
+  --track:#e5dde3; --chip-bg:rgba(60,20,50,.07); --shadow:rgba(60,20,50,.22);
+}
+/* ---- Super Destroyer (bought in Drills > Themes) ---- */
+:root[data-theme="destroyer"] { color-scheme:dark;
+  --bg:#0b1118; --panel:#141d28; --header-top:#1e2b3b; --card:#1a2635; --card-hi:color-mix(in srgb,#fff 8%,#1a2635);
+  --line:#34495f; --card-line:color-mix(in srgb,#8fd3ff 20%,transparent);
+  --light:#8fd3ff; --text:#ffffff; --muted:#9fb4c8; --faint:color-mix(in srgb,#9fb4c8 72%,#0b1118);
+  --accent:#46c2ff; --accent-ink:#46c2ff; --on-accent:#10151f; --on-light:#0b1118;
+  --track:#06090d; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Terminid Hive (bought in Drills > Themes) ---- */
+:root[data-theme="hive"] { color-scheme:dark;
+  --bg:#10130a; --panel:#1c2210; --header-top:#2c3517; --card:#252d14; --card-hi:color-mix(in srgb,#fff 8%,#252d14);
+  --line:#4d5c25; --card-line:color-mix(in srgb,#d7f27a 20%,transparent);
+  --light:#d7f27a; --text:#ffffff; --muted:#b2bd8a; --faint:color-mix(in srgb,#b2bd8a 72%,#10130a);
+  --accent:#b6e03a; --accent-ink:#b6e03a; --on-accent:#10151f; --on-light:#10130a;
+  --track:#090a06; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}
+/* ---- Chrome Legion (bought in Drills > Themes) ---- */
+:root[data-theme="chrome"] { color-scheme:dark;
+  --bg:#0d0d10; --panel:#18181d; --header-top:#26262e; --card:#202027; --card-hi:color-mix(in srgb,#fff 8%,#202027);
+  --line:#3f3f4c; --card-line:color-mix(in srgb,#d5d8e0 20%,transparent);
+  --light:#d5d8e0; --text:#ffffff; --muted:#a9adba; --faint:color-mix(in srgb,#a9adba 72%,#0d0d10);
+  --accent:#ff3b3b; --accent-ink:#ff3b3b; --on-accent:#ffffff; --on-light:#0d0d10;
+  --track:#070709; --chip-bg:rgba(0,0,0,.3); --shadow:rgba(0,0,0,.55);
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Customise widget</title>
+  <script src="electron-shim.js"></script>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="widget.css">
+  <link rel="stylesheet" href="designer.css">
+</head>
+<body>
+  <div id="app">
+    <header id="dHead">
+      <div>
+        <h1>Customise widget</h1>
+        <p id="dHelp">Drag parts onto the preview. Drag a part off it, or double-click it, to remove it. The preview uses sample numbers; your desktop widget follows along live.</p>
+      </div>
+      <button id="dDone" class="btn">Done</button>
+    </header>
+    <div id="dMain">
+      <section id="dLeft">
+        <div id="stage"><div id="pv" class="w parts"><main id="pvBody"></main></div></div>
+        <div id="dStatus"></div>
+        <div id="pal"></div>
+      </section>
+      <aside id="dSide"></aside>
+    </div>
+  </div>
+  <script src="designer.js" type="module"></script>
+</body>
+</html>

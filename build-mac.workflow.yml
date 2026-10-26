@@ -1,0 +1,55 @@
+name: Build Mac app
+
+# Builds the Mac app with its gallery widget on a GitHub Mac, so nothing has to be installed on yours.
+# It runs by itself whenever you upload changes, and you can also start it by hand from the Actions tab (Run workflow).
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write      # only used to attach the zips to a release when you push a tag like v3.9.0
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the packaging tools
+        run: npm install --no-audit --no-fund
+
+      - name: Show the Mac build tools
+        run: |
+          sw_vers
+          xcodebuild -version
+          swiftc --version
+
+      - name: Build the widget (Apple Silicon + Intel in one)
+        run: bash widget/build-widget.sh build
+
+      - name: Package the app, Apple Silicon
+        run: bash scripts/package-mac.sh arm64
+
+      - name: Package the app, Intel
+        run: bash scripts/package-mac.sh x64
+
+      - name: Keep the zips
+        uses: actions/upload-artifact@v4
+        with:
+          name: Helldivers-2-War-Tracker-Mac
+          path: out/*.zip
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Attach the zips to the release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/*.zip

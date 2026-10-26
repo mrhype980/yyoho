@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drills: Stratagem Hero</title>
+<script src="../electron-shim.js"></script>
+  <script src="../errlog.js"></script>
+<script src="../theme.js"></script>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="drills.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand"><span id="hdrLogo"></span><div class="logo">Stratagem Hero<small>Practice your codes</small></div></div>
+      <div class="tools">
+        <button id="btnMute" title="Turn sound on or off" aria-label="Toggle sound">Sound: On</button>
+        <button id="btnWin" class="only-popup" title="Open in a larger window" aria-label="Open in a window">Window</button>
+        <button id="btnTab" class="only-popup" title="Open in a browser tab" aria-label="Open in a tab">Tab</button>
+      </div>
+    </header>
+    <main>
+      <section id="menu" class="screen"></section>
+      <section id="brief" class="screen scroll hidden"></section>
+      <section id="play" class="screen hidden">
+        <div class="hud">
+          <div><span id="lRound">Round</span><b id="hRound">1</b></div>
+          <div>Score<b id="hScore">0</b></div>
+          <div>Combo<b id="hCombo">x1.0</b></div>
+          <div><span id="lQuota">Quota</span><b id="hQuota">0/0</b></div>
+        </div>
+        <div class="timer"><div id="timerBar"></div><span id="timerTxt"></span></div>
+        <div class="card">
+          <div id="icon" class="icon"></div>
+          <div><div id="sName"></div><div id="sCat"></div></div>
+        </div>
+        <div id="arrows" class="arrows"></div>
+        <div class="next">Next: <b id="nextName"></b></div>
+        <div id="boosts" class="boosts"></div>
+        <div id="tip" class="tip"></div>
+        <div id="pop" aria-live="polite"></div>
+        <div id="pauseOv"><b>Paused</b><small>Press P or tap to resume</small></div>
+      </section>
+      <section id="result" class="screen scroll hidden"></section>
+      <section id="loadout" class="screen hidden"></section>
+      <section id="shop" class="screen hidden"></section>
+      <section id="wb" class="screen hidden"></section>
+      <section id="stats" class="screen hidden"></section>
+      <section id="themes" class="screen hidden"></section>
+      <section id="admin" class="screen hidden"></section>
+  <section id="practice" class="screen hidden"></section>
+  <section id="challenges" class="screen hidden"></section>
+  <section id="arcade" class="screen scroll hidden"></section>
+      <section id="plinko" class="screen scroll hidden"></section>
+      <section id="slots" class="screen scroll hidden"></section>
+      <section id="drops" class="screen scroll hidden"></section>
+      <div id="toast" role="status" aria-live="polite"></div>
+    </main>
+    <footer id="hint">For Super Earth!</footer>
+  </div>
+  <div id="mpops"></div>
+  <script src="game.js"></script>
+</body>
+</html>
